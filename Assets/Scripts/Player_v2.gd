@@ -32,7 +32,7 @@ func _ready():
 	pass
 	
 slave func set_pos(player_position):
-	self.position = player_position;
+	#self.position = player_position;
 	pass
 
 func _process(delta):
