@@ -11,8 +11,14 @@ config_version=3
 [application]
 
 config/name="Bebot Paranoia"
-run/main_scene="res://Assets/Maps/Level.tscn"
+run/main_scene="res://Assets/Scenes/Root.tscn"
 config/icon="res://icon.png"
+
+[display]
+
+window/size/width=1366
+window/size/height=768
+window/size/borderless=true
 
 [input]
 

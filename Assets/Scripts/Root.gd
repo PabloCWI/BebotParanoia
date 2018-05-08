@@ -1,13 +1,11 @@
 extends Spatial
 
-var main_menu = preload("res://Assets/Scenes/Main Menu.tscn");
-
 # class member variables go here, for example:
 # var a = 2
 # var b = "textvar"
 
 func _ready():
-	get_tree().change_scene(main_menu);
+	get_tree().change_scene("res://Assets/Scenes/Main Menu.tscn");
 	pass
 
 #func _process(delta):
