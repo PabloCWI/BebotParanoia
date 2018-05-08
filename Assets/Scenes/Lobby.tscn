@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Assets/Scripts/Lobby.gd" type="Script" id=1]
 
-[node name="lobby" type="Control" index="0"]
+[node name="lobby" type="Control"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -152,6 +152,7 @@ align = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
+_sections_unfolded = [ "custom_colors" ]
 
 [node name="status_fail" type="Label" parent="panel" index="5"]
 
@@ -174,6 +175,7 @@ align = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
+_sections_unfolded = [ "Focus", "Hint", "Mouse", "Size Flags", "Theme", "custom_colors", "custom_fonts", "custom_styles" ]
 
 [connection signal="pressed" from="panel/host" to="." method="_on_host_pressed"]
 
