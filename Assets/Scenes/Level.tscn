@@ -8,7 +8,7 @@
 [ext_resource path="res://Assets/Models/Objects/Process_Box_Input.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Assets/Models/Objects/Player.tscn" type="PackedScene" id=7]
 
-[node name="Level" type="Spatial" index="0"]
+[node name="Level" type="Spatial"]
 
 script = ExtResource( 1 )
 
@@ -87,7 +87,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.57342, 0.5, 5.77979 )
 
 [node name="Player_02" parent="." index="9" instance=ExtResource( 7 )]
 
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.45667, 1, 4.28834 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.45667, 0.5, 4.28834 )
 
 [node name="exit_game" type="Button" parent="." index="10"]
 
