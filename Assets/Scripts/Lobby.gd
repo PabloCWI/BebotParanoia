@@ -8,7 +8,7 @@ const DEFAULT_PORT = 8910 # some random number, pick your port properly
 # callback from SceneTree
 func _player_connected(id):
 	#someone connected, start the game!
-	var bebotParanoia = load("res://Assets/Maps/Level.tscn").instance()
+	var bebotParanoia = load("res://Assets/Scenes/Level.tscn").instance()
 	bebotParanoia.connect("game_finished",self,"_end_game",[],CONNECT_DEFERRED) # connect deferred so we can safely erase it from the callback
 	
 	get_tree().get_root().add_child(bebotParanoia)

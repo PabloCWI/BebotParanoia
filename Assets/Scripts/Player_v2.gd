@@ -13,9 +13,11 @@ var collidedBox;
 var process;
 var player;
 var speedMultiplier = 0.250;
+onready var camera = get_node("Camera");
 onready var interactionRay = get_node("InteractionRay");
 onready var carryNode = get_node("PlayerTop");
 onready var playerID = 0;
+onready var cameraStart = true;
 
 func _ready():
 	add_to_group("players");
@@ -30,13 +32,20 @@ func _ready():
 	actionLockTimer = 0.0;
 	print("Player ID: ", playerID)
 	pass
-	
-slave func set_pos(player_position):
-	#self.position = player_position;
+
+sync func set_pos(player_position):
+	transform = player_position;
 	pass
 
 func _process(delta):
-	
+	if(is_network_master()):
+		if(cameraStart):
+			camera.make_current();
+			cameraStart = false;
+		loop(delta)
+		rpc_unreliable("set_pos", transform)
+
+func loop(delta):
 	if(Input.is_action_just_pressed("player_interact") and actionLock == false):
 		check_ray_collision();		
 	
@@ -65,8 +74,6 @@ func _process(delta):
 		move_and_collide(Vector3(0, 0, 1.0 * speedMultiplier))
 	
 	pass
-	
-	rpc_unreliable("set_pos", self.get_position_in_parent())
 
 #MOVEMENT
 
