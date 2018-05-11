@@ -1,9 +1,11 @@
-
 extends Control
 
-const DEFAULT_PORT = 8910 # some random number, pick your port properly
+const PORT = 8910 # some random number, pick your port properly
 
 #### Network callbacks from SceneTree ####
+
+var player_bot = null;
+var players = [];
 
 # callback from SceneTree
 func _player_connected(id):
@@ -21,12 +23,6 @@ func _player_disconnected(id):
 	else:
 		_end_game("Server disconnected")
 
-# callback from SceneTree, only for clients (not server)
-func _connected_ok():
-	# will not use this one
-	pass
-	
-# callback from SceneTree, only for clients (not server)	
 func _connected_fail():
 
 	_set_status("Couldn't connect",false)
@@ -67,16 +63,36 @@ func _on_host_pressed():
 	
 	var host = NetworkedMultiplayerENet.new()
 	host.set_compression_mode(NetworkedMultiplayerENet.COMPRESS_RANGE_CODER)
-	var err = host.create_server(DEFAULT_PORT,1) # max: 1 peer, since it's a 2 players game
+	var err = host.create_server(PORT,1) # max: 1 peer, since it's a 2 players game
 	if (err!=OK):
 		#is another server running?
 		_set_status("Can't host, address in use.",false)
 		return
-		
 	get_tree().set_network_peer(host)
 	get_node("panel/join").set_disabled(true)
 	get_node("panel/host").set_disabled(true)
 	_set_status("Waiting for player..",true)
+	_connected_ok()
+	pass
+
+func _connected_ok():
+	rpc("register_player", get_tree().get_network_unique_id())
+	register_player(get_tree().get_network_unique_id())
+	get_tree().get_root().get_node("Lobby").queue_free()
+	pass # replace with function body
+
+remote func register_player(player_id):
+	var p = player_bot.instance()
+	p.set_network_master(player_id)
+	p.name = str(player_id)
+	get_tree().get_root().add_child(p);
+	if (get_tree().get_network_unique_id() == 1):
+		if (player_id != 1):
+			for i in players:
+				rpc_id(player_id, "register_player", i)
+		players.append(player_id);
+	pass
+
 
 func _on_join_pressed():
 	
@@ -87,16 +103,15 @@ func _on_join_pressed():
 	
 	var host = NetworkedMultiplayerENet.new()
 	host.set_compression_mode(NetworkedMultiplayerENet.COMPRESS_RANGE_CODER)
-	host.create_client(ip,DEFAULT_PORT)
+	host.create_client(ip,PORT)
 	get_tree().set_network_peer(host)
 	
 	_set_status("Connecting..",true)
 
-
-
 ### INITIALIZER ####
 	
 func _ready():
+	player_bot = preload("res://Assets/Models/Objects/Player.tscn")
 	# connect all the callbacks related to networking
 	get_tree().connect("network_peer_connected",self,"_player_connected")
 	get_tree().connect("network_peer_disconnected",self,"_player_disconnected")

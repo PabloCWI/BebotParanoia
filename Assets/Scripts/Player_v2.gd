@@ -81,7 +81,7 @@ func check_ray_collision():
 	if(interactionRay.is_colliding() and interactionRay.get_collider().get_groups() != null):
 		if(!hasBox and interactionRay.get_collider().is_in_group("process") and actionLock == false):
 			process = interactionRay.get_collider();
-			request_box(process);
+			rpc("request_box",process);
 			actionLock = true;
 			return;
 		if(hasBox and interactionRay.get_collider().is_in_group("process") and actionLock == false):
@@ -96,7 +96,7 @@ func set_hasBox(boolStatus):
 	pass
 
 #BOX GET AND DELIVER
-func request_box(process):
+sync func request_box(process):
 	if(process.process_status() == "ReadyToDeliver"):
 		carriedBox = process.deliver_box_to(player);
 		print("This Box: ", carriedBox)

@@ -2,6 +2,8 @@ extends Spatial
 
 signal game_finished()
 
+onready var spawn_points = [Vector3(), Vector3()]
+
 sync func update_score(add_to_left):
 	var game_ended = false
 	if (game_ended):
@@ -11,7 +13,9 @@ func _on_exit_game_pressed():
 	emit_signal("game_finished")
 
 func _ready():
-	
+	spawn_points = [
+		
+	]
 	# by default, all nodes in server inherit from master
 	# while all nodes in clients inherit from slave
 		
