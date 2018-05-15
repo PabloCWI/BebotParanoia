@@ -21,17 +21,16 @@ func _ready():
 
 func _process(delta):
 	if(hasBox == false and processStatus == "Processing"):
-		do_process(delta);
+		rpc("do_process", delta);
 
 	pass
 
-func do_process(delta):
+slave func do_process(delta):
 	processTime = processTime + delta;
 	
 	if(processTime > 3.0):
-		rpc("instantiate_box");
+		rpc("instantiate_box", box);
 	pass
-
 
 func process_status():	
 	return processStatus;
@@ -39,13 +38,13 @@ func process_status():
 
 # SAFE RPC CALLS
 
-sync func instantiate_box():
-	currentBox = box.instance();
-	boxHolder.add_child(currentBox);		
+sync func instantiate_box(new_box):
 	processStatus = "ReadyToDeliver";
+	currentBox = new_box.instance();
+	boxHolder.add_child(currentBox);		
 	processTime = 0.0;
 
-func deliver_box_to(player):
+slave func deliver_box_to(player):
 	if(player.hasBox == false):
 		player.set_hasBox(true);
 		processStatus = "Processing";

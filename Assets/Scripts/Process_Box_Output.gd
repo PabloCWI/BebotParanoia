@@ -20,11 +20,11 @@ func _ready():
 
 func _process(delta):
 	if(hasBox == true and processStatus == "Processing"):		
-		do_process(delta);
+		rpc("do_process", delta);
 
 	pass
 
-func do_process(delta):
+sync func do_process(delta):
 	processTime = processTime + delta;
 	
 	if(processTime > 3.0):
@@ -34,10 +34,10 @@ func do_process(delta):
 		currentBox.queue_free();
 	pass
 	
-func process_status():	
+sync func process_status():	
 	return processStatus;
 
-func receive_box_from(box, player):
+slave func receive_box_from(box, player):
 	if (player.hasBox == true and processStatus == "ReadyToReceive" and box.is_in_group("boxes") ):
 		player.set_hasBox(false);
 		boxHolder.add_child(box);

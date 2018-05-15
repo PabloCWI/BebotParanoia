@@ -47,7 +47,7 @@ func _process(delta):
 
 func loop(delta):
 	if(Input.is_action_just_pressed("player_interact") and actionLock == false):
-		check_ray_collision();		
+		rpc("check_ray_collision");		
 	
 	if(actionLock == true):
 		actionLockTimer = actionLockTimer + delta;
@@ -77,16 +77,17 @@ func loop(delta):
 
 #MOVEMENT
 
-func check_ray_collision():	
+sync func check_ray_collision():	
+	print("Checking Collision")
 	if(interactionRay.is_colliding() and interactionRay.get_collider().get_groups() != null):
 		if(!hasBox and interactionRay.get_collider().is_in_group("process") and actionLock == false):
 			process = interactionRay.get_collider();
-			rpc("request_box",process);
+			rpc("request_box", process);
 			actionLock = true;
 			return;
 		if(hasBox and interactionRay.get_collider().is_in_group("process") and actionLock == false):
 			process = interactionRay.get_collider();
-			deliver_box(process);
+			rpc("deliver_box", process);
 			actionLock = true;
 			return;
 	pass
@@ -105,7 +106,7 @@ sync func request_box(process):
 	else:
 		print("Cannot Deliver Box");
 
-func deliver_box(process):
+sync func deliver_box(process):
 	if(process.process_status() == "ReadyToReceive"):
 		print("This Box: ", carriedBox)
 		carryNode.remove_child(carriedBox);
