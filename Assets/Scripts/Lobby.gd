@@ -13,6 +13,7 @@ func _player_connected(id):
 	var bebotParanoia = load("res://Assets/Scenes/Level.tscn").instance()
 	bebotParanoia.connect("game_finished",self,"_end_game",[],CONNECT_DEFERRED) # connect deferred so we can safely erase it from the callback
 	
+	get_node("Main Menu").free()
 	get_tree().get_root().add_child(bebotParanoia)
 	hide()
 
