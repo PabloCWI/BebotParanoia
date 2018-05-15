@@ -65,7 +65,7 @@ _sections_unfolded = [ "Metallic" ]
 
 extents = Vector3( 1, 1, 1 )
 
-[node name="Player" type="KinematicBody"]
+[node name="Player" type="KinematicBody" index="0"]
 
 input_ray_pickable = true
 input_capture_on_drag = false
@@ -112,7 +112,7 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="InteractionRay" type="RayCast" parent="." index="3"]
 
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0.830268, -0.896698 )
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0.950334, -0.896698 )
 enabled = true
 exclude_parent = true
 cast_to = Vector3( 0.5, 0, 0 )
