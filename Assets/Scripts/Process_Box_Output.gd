@@ -37,7 +37,7 @@ sync func do_process(delta):
 sync func process_status():	
 	return processStatus;
 
-slave func receive_box_from(box, player):
+sync func receive_box_from(box, player):
 	if (player.hasBox == true and processStatus == "ReadyToReceive" and box.is_in_group("boxes") ):
 		player.set_hasBox(false);
 		boxHolder.add_child(box);

@@ -92,25 +92,30 @@ sync func check_ray_collision():
 			return;
 	pass
 
-func set_hasBox(boolStatus):
+sync func set_hasBox(boolStatus):
 	hasBox = boolStatus;
 	pass
 
 #BOX GET AND DELIVER
 sync func request_box(process):
+	print(process.process_status());
 	if(process.process_status() == "ReadyToDeliver"):
 		carriedBox = process.deliver_box_to(player);
 		print("This Box: ", carriedBox)
 		carryNode.add_child(carriedBox);
-		carriedBox.set_translation(Vector3(0,1.05,0));		
+		carriedBox.set_translation(Vector3(0,1.05,0));			
 	else:
 		print("Cannot Deliver Box");
 
 sync func deliver_box(process):
 	if(process.process_status() == "ReadyToReceive"):
 		print("This Box: ", carriedBox)
-		carryNode.remove_child(carriedBox);
-		process.receive_box_from(carriedBox, self);	
-
-
+		rpc("remove_box");
+		process.rpc("receive_box_from",carriedBox, self);
 	print("Delivered Box");
+
+sync func remove_box():
+	print("This Box: ", carriedBox)
+	carryNode.remove_child(carriedBox);
+	print("This Box: ", carriedBox, " was removed")
+	

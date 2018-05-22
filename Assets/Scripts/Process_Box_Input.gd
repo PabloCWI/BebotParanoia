@@ -25,7 +25,7 @@ func _process(delta):
 
 	pass
 
-slave func do_process(delta):
+master func do_process(delta):
 	processTime = processTime + delta;
 	
 	if(processTime > 3.0):
@@ -41,10 +41,10 @@ func process_status():
 sync func instantiate_box(new_box):
 	processStatus = "ReadyToDeliver";
 	currentBox = new_box.instance();
-	boxHolder.add_child(currentBox);		
 	processTime = 0.0;
+	boxHolder.add_child(currentBox);	
 
-slave func deliver_box_to(player):
+sync func deliver_box_to(player):
 	if(player.hasBox == false):
 		player.set_hasBox(true);
 		processStatus = "Processing";

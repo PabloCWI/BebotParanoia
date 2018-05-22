@@ -24,7 +24,7 @@ func _process(delta):
 
 	pass
 
-slave func do_process(delta):
+master func do_process(delta):
 	processTime = processTime + delta;
 	
 	if(processTime > 3.0):
@@ -32,10 +32,10 @@ slave func do_process(delta):
 		processTime = 0.0;
 	pass
 	
-slave func process_status():	
+sync func process_status():	
 	return processStatus;
 	
-slave func deliver_box_to(player):
+sync func deliver_box_to(player):
 	if(player.hasBox == false):
 		player.set_hasBox(true);
 		processStatus = "ReadyToReceive";
@@ -43,7 +43,8 @@ slave func deliver_box_to(player):
 		boxHolder.remove_child(currentBox);
 		return currentBox;
 
-slave func receive_box_from(box, player):
+sync func receive_box_from(box, player):	
+	print("box: ", box, "+ player: ", player);
 	if (player.hasBox == true and processStatus == "ReadyToReceive" and box.is_in_group("boxes") ):
 		player.set_hasBox(false);
 		boxHolder.add_child(box);
