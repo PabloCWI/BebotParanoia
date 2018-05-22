@@ -17,11 +17,11 @@ func _ready():
 	pass
 
 func _process(delta):
-	rpc_unreliable("current_position", transform);
+	#rpc_unreliable("current_position", transform);
 	pass
 
 sync func current_position(box_current_position):
-	transform = box_current_position 
+	#transform = box_current_position 
 	pass
 
 func get_Color():
