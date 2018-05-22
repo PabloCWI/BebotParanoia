@@ -1,0 +1,32 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="GDScript" id=1]
+
+script/source = "extends Node
+
+signal game_finished()
+
+sync func update_score(add_to_left):
+	var game_ended = false
+	if (game_ended):
+		get_node(\"exit_game\").show()
+		
+func _on_exit_game_pressed():
+	emit_signal(\"game_finished\")
+
+func _ready():
+	if (get_tree().is_network_server()):		
+		#if in the server, get control of player 2 to the other peeer, this function is tree recursive by default
+		get_parent().get_node(\"Player_02\").set_network_master(get_tree().get_network_connected_peers()[0])
+	else:
+		#if in the client, give control of player 2 to itself, this function is tree recursive by default
+		get_parent().get_node(\"Player_02\").set_network_master(get_tree().get_network_unique_id())
+
+	pass
+"
+
+[node name="NetworkMaster" type="Node"]
+
+script = SubResource( 1 )
+
+

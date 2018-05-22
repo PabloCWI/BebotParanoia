@@ -43,11 +43,13 @@ sync func deliver_box_to(player):
 		boxHolder.remove_child(currentBox);
 		return currentBox;
 
-sync func receive_box_from(box, player):	
-	print("box: ", box, "+ player: ", player);
+sync func receive_box_from(box, player):
+	print("Process receiving box: ", box, "from player: ", player);
+	print("HasBox: ",player. hasBox, " ProcessStatus: ", processStatus, " BoxGroup: ", box.is_in_group("boxes")) 
 	if (player.hasBox == true and processStatus == "ReadyToReceive" and box.is_in_group("boxes") ):
-		player.set_hasBox(false);
 		boxHolder.add_child(box);
+		
+		player.set_hasBox(false);
 		currentBox = box;
 		box.set_translation(Vector3(0,0,0));
 		processStatus = "Processing";

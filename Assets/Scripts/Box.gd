@@ -1,4 +1,4 @@
-extends Spatial
+extends KinematicBody 
 
 var ID = 100000
 var Box_Color
@@ -21,8 +21,14 @@ func _process(delta):
 	pass
 
 sync func current_position(box_current_position):
-	#transform = box_current_position 
+	transform = box_current_position 
 	pass
 
 func get_Color():
 	return Box_Color;
+	
+func meDestroi():
+	rpc("deleteMe")
+
+sync func deleteMe():
+	queue_free()

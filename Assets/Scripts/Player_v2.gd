@@ -77,7 +77,7 @@ func loop(delta):
 
 #MOVEMENT
 
-sync func check_ray_collision():	
+sync func check_ray_collision():
 	print("Checking Collision")
 	if(interactionRay.is_colliding() and interactionRay.get_collider().get_groups() != null):
 		if(!hasBox and interactionRay.get_collider().is_in_group("process") and actionLock == false):
@@ -101,21 +101,15 @@ sync func request_box(process):
 	print(process.process_status());
 	if(process.process_status() == "ReadyToDeliver"):
 		carriedBox = process.deliver_box_to(player);
-		print("This Box: ", carriedBox)
+		print("Player: ", self, "Requested this Box: ", carriedBox)
 		carryNode.add_child(carriedBox);
 		carriedBox.set_translation(Vector3(0,1.05,0));			
 	else:
-		print("Cannot Deliver Box");
+		print("Player: ", self, "Cannot Deliver Box");
 
 sync func deliver_box(process):
 	if(process.process_status() == "ReadyToReceive"):
-		print("This Box: ", carriedBox)
-		rpc("remove_box");
-		process.rpc("receive_box_from",carriedBox, self);
-	print("Delivered Box");
-
-sync func remove_box():
-	print("This Box: ", carriedBox)
-	carryNode.remove_child(carriedBox);
-	print("This Box: ", carriedBox, " was removed")
-	
+		print("Player: ", self, "Is trying to delive This Box: ", carriedBox)
+		process.rpc("receive_box_from", carriedBox, self);
+		carryNode.remove_child(carriedBox);
+	print("Delivered Box");	
