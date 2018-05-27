@@ -1,13 +1,14 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Assets/Scripts/Level.gd" type="Script" id=1]
-[ext_resource path="res://Assets/Utility/NetworkMaster.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Assets/Scripts/NetworkMaster.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Assets/Models/Tiles/TileSet.meshlib" type="MeshLibrary" id=3]
 [ext_resource path="res://Assets/Models/Objects/Chao_Basico.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Assets/Models/Objects/Process_01.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Assets/Models/Objects/Process_Box_Output.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Assets/Models/Objects/Process_Box_Input.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Assets/Models/Objects/Player.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Assets/Scripts/Player_v2.gd" type="Script" id=9]
 
 [node name="Level" type="Spatial" index="0"]
 
@@ -87,10 +88,12 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.81483, 0.5, -3.67285 )
 [node name="Player_01" parent="." index="9" instance=ExtResource( 8 )]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.57342, 0.5, 5.77979 )
+script = ExtResource( 9 )
 
 [node name="Player_02" parent="." index="10" instance=ExtResource( 8 )]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.45667, 0.5, 4.28834 )
+script = ExtResource( 9 )
 
 [node name="exit_game" type="Button" parent="." index="11"]
 

@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://Assets/Scripts/Player_v2.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Scripts/Player_v3.gd" type="Script" id=1]
 
 [sub_resource type="CubeMesh" id=1]
 
@@ -65,7 +65,7 @@ _sections_unfolded = [ "Metallic" ]
 
 extents = Vector3( 1, 1, 1 )
 
-[node name="Player" type="KinematicBody" index="0"]
+[node name="Player" type="KinematicBody"]
 
 input_ray_pickable = true
 input_capture_on_drag = false
