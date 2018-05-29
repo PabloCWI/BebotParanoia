@@ -1,67 +1,9 @@
 [gd_scene load_steps=2 format=2]
 
-[sub_resource type="GDScript" id=1]
-
-script/source = "extends Node
-
-signal game_finished()
-
-sync func update_score():
-	var game_ended = false
-	if (game_ended):
-		get_node(\"exit_game\").show()
-		
-func _on_exit_game_pressed():
-	emit_signal(\"game_finished\")
-
-func _ready():
-	if (get_tree().is_network_server()):		
-		#if in the server, get control of player 2 to the other peeer, this function is tree recursive by default
-		get_parent().get_node(\"Player_02\").set_network_master(get_tree().get_network_connected_peers()[0])
-	else:
-		#if in the client, give control of player 2 to itself, this function is tree recursive by default
-		get_parent().get_node(\"Player_02\").set_network_master(get_tree().get_network_unique_id())
-	pass
-
-func _on_player_deliver_box_to_process(player, box, process):
-	pass
-
-func _on_player_ask_box_from_process(player, process):
-	print(\"NetPlayer: \" + player + \" asked for a box from: \" + process)
-	var box = get_box_from_process(process);
-	rpc(\"_deliver_box_to_player_from_process\", player, box, process)
-	pass
-
-func get_box_from_process(process):
-	var box = process.can_deliver_box();
-	if (box != null):
-		print(\"Process:\" + process + \" can deliver box: \" + box)
-		return box;
-	else:
-		print(\"Process: \" + process + \" cannot deliver box.\")
-		return null;
-	pass
-
-sync func _deliver_box_to_player_from_process(player, box, process):
-	print(\"Network master delivers box: \" + box + \" from process\" + process)
-	pass
-
-sync func _deliver_box_to_process_from_player(player, box, process):
-	pass
-
-
-
-
-
-func _on_Player_01_ask_box_from_process():
-	print(\"NetPlayer: \" + player + \" asked for a box from: \" + process)
-	var box = get_box_from_process(process);
-	rpc(\"_deliver_box_to_player_from_process\", player, box, process)
-	pass
-"
+[ext_resource path="res://Assets/Scripts/NetworkMaster.gd" type="Script" id=1]
 
 [node name="NetworkMaster" type="Node"]
 
-script = SubResource( 1 )
+script = ExtResource( 1 )
 
 

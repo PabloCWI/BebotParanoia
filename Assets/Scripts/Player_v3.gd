@@ -33,8 +33,7 @@ func _ready():
 	player = self;
 	actionLock = false;
 	actionLockTimer = 0.0;
-	print("Player ID: ", get_unique_id())
-	connect("network_peer_connected",self,"_player_connected")
+	#connect("network_peer_connected",self,"_player_connected")
 	pass
 
 sync func set_pos(player_position):
@@ -81,16 +80,19 @@ func loop(delta):
 	pass
 
 func check_ray_collision():
-	print("Checking Collision")
+	print("Player ", get_tree().get_network_unique_id(), " Checking Collision")
 	if(interactionRay.is_colliding() and interactionRay.get_collider().get_groups() != null):
 		if(!hasBox and interactionRay.get_collider().is_in_group("process") and actionLock == false):
 			process = interactionRay.get_collider();
-			emit_signal("ask_box_from_process", process)
+			print("Player ", self, " is emiting signal to process: ", process)
+			emit_signal("ask_box_from_process", self, process)
+			var box = process.can_deliver_box();
+			print(box)
 			actionLock = true;
 			return;
-		if(hasBox and interactionRay.get_collider().is_in_group("process") and actionLock == false):
-			process = interactionRay.get_collider();
-			rpc("deliver_box", process);
-			actionLock = true;
-			return;
+		#if(hasBox and interactionRay.get_collider().is_in_group("process") and actionLock == false):
+		#	process = interactionRay.get_collider();
+		#	rpc("deliver_box", process);
+		#	actionLock = true;
+		#	return;
 	pass
