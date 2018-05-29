@@ -9,7 +9,7 @@
 [ext_resource path="res://Assets/Models/Objects/Process_Box_Input.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Assets/Scripts/Process_Box_Input_v2.gd" type="Script" id=8]
 
-[node name="Level" type="Spatial" index="0"]
+[node name="Level" type="Spatial"]
 
 script = ExtResource( 1 )
 

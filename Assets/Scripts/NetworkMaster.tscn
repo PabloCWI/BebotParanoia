@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Assets/Scripts/NetworkMaster.gd" type="Script" id=1]
 
-[node name="NetworkMaster" type="Node"]
+[node name="NetworkMaster" type="Node" index="0"]
 
 script = ExtResource( 1 )
 
