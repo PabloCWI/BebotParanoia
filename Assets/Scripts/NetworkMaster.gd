@@ -3,7 +3,6 @@ extends Node
 var playerObject = load("res://Assets/Models/Objects/Player.tscn")
 
 func _ready():
-	
 	#instert player 1 onto scene
 	var botP1 = playerObject.instance()
 	get_parent().call_deferred("add_child",botP1)
@@ -14,17 +13,17 @@ func _ready():
 	var botP2 = playerObject.instance()
 	get_parent().call_deferred("add_child",botP2)
 	botP2.set_name("Player_02")
-	botP2.translate(Vector3(-5,0.5,5))
+	botP2.translate(Vector3(5,0.5,5))	
 	
-	call_deferred("_set_players_on_network")
+	call_deferred("_set_players_on_network", botP1, botP2)
 
-func _set_players_on_network():
+func _set_players_on_network(botP1, botP2):
 	if (get_tree().is_network_server()):				
 		#if in the server, get control of player 2 to the other peeer, this function is tree recursive by default
 		#get_parent().get_node("Player_01").set_network_master(get_tree().get_network_unique_id())
 		get_parent().get_node("Player_02").set_network_master(get_tree().get_network_connected_peers()[0])
 	else:		
-		#if in the client, give control of player 2 to itself, this function is tree recursive by default		
+		#if in the client, give control of player 2 to itself, this function is tree recursive by default				
 		get_parent().get_node("Player_02").set_network_master(get_tree().get_network_unique_id())
 		#get_parent().get_node("Player_01").set_network_master(get_tree().get_network_connected_peers()[0])
 	pass

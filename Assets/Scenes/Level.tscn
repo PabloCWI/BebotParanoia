@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Assets/Scripts/Level.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Scripts/NetworkMaster.tscn" type="PackedScene" id=2]
@@ -8,7 +8,6 @@
 [ext_resource path="res://Assets/Models/Objects/Process_Box_Output.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Assets/Models/Objects/Process_Box_Input.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Assets/Scripts/Process_Box_Input_v2.gd" type="Script" id=8]
-[ext_resource path="res://Assets/Models/Objects/Player.tscn" type="PackedScene" id=9]
 
 [node name="Level" type="Spatial" index="0"]
 
@@ -86,15 +85,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12.699, 0.5, 2.75582 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.81483, 0.5, -3.65325 )
 script = ExtResource( 8 )
 
-[node name="Player_03" parent="." index="9" instance=ExtResource( 9 )]
-
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0.5, 8.589 )
-
-[node name="Player_04" parent="." index="10" instance=ExtResource( 9 )]
-
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0.5, 8.50401 )
-
-[node name="exit_game" type="Button" parent="." index="11"]
+[node name="exit_game" type="Button" parent="." index="9"]
 
 visible = false
 anchor_left = 0.0
@@ -119,7 +110,5 @@ group = null
 text = "Exit"
 flat = false
 align = 1
-
-[connection signal="ask_box_from_process" from="Player_03" to="NetworkMaster" method="_on_Player_01_ask_box_from_process"]
 
 
