@@ -16,6 +16,7 @@ func _player_connected(id):
 	hide()
 
 func _player_disconnected(id):
+	get_tree().quit()
 
 	if (get_tree().is_network_server()):
 		_end_game("Client disconnected")
@@ -37,6 +38,7 @@ func _connected_fail():
 	get_node("Start_Button").set_disabled(false)		
 
 func _server_disconnected():
+	get_tree().quit()
 	_end_game("Server disconnected")
 	
 ##### Game creation functions ######
