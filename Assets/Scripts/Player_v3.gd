@@ -5,35 +5,40 @@ export var left=false
 var actionLock;
 var actionLockTimer;
 var hasBox;
-var carriedBox;
+var currentBox;
 var color;
 var nickName;
 var madeMistake;
 var collidedBox;
 var process;
 var player;
+var playerUNID;
 var speedMultiplier = 0.250;
 onready var camera = get_node("Camera");
 onready var interactionRay = get_node("InteractionRay");
-onready var carryNode = get_node("PlayerTop");
+onready var boxHolder = get_node("BoxHolder");
 onready var playerID = 0;
 onready var cameraStart = true;
+onready var nwMaster = get_parent().get_node("NetworkMaster");
 
-signal ask_box_from_process;
+signal ask_box_from_process(player, process);
+signal deliver_box_to_process(player, process);
 
 
-func _ready():
+func _ready():	
 	add_to_group("players");
 	hasBox = false;
-	carriedBox = null;
+	currentBox = null;
 	color = [randi() % 255, randi() % 255, randi() % 255];
 	playerID = playerID + 1;
 	nickName = "";
 	madeMistake = false;
 	player = self;
+	playerUNID = get_tree().get_network_unique_id();
 	actionLock = false;
 	actionLockTimer = 0.0;
-	#connect("network_peer_connected",self,"_player_connected")
+	player.connect("ask_box_from_process", nwMaster, "_on_player_ask_box_from_process")
+	player.connect("deliver_box_to_process", nwMaster, "_on_player_deliver_box_to_process")
 	pass
 
 sync func set_pos(player_position):
@@ -61,9 +66,6 @@ func loop(delta):
 			
 			pass
 	
-		if(hasBox):
-			carryNode.get_child(0).set_translation(Vector3(0,1.05,0));
-	
 		#KEY DETECTION
 		if(Input.is_action_pressed("player_move_right")):
 			move_and_collide(Vector3(1.0 * speedMultiplier, 0, 0));
@@ -79,20 +81,16 @@ func loop(delta):
 	
 	pass
 
-func check_ray_collision():
-	print("Player ", get_tree().get_network_unique_id(), " Checking Collision")
+func check_ray_collision():	
 	if(interactionRay.is_colliding() and interactionRay.get_collider().get_groups() != null):
 		if(!hasBox and interactionRay.get_collider().is_in_group("process") and actionLock == false):
-			process = interactionRay.get_collider();
-			print("Player ", self, " is emiting signal to process: ", process)
-			emit_signal("ask_box_from_process", self, process)
-			var box = process.can_deliver_box();
-			print(box)
-			actionLock = true;
+			process = interactionRay.get_collider().get_name();
+			emit_signal("ask_box_from_process", self.get_name(), process);
 			return;
-		#if(hasBox and interactionRay.get_collider().is_in_group("process") and actionLock == false):
-		#	process = interactionRay.get_collider();
-		#	rpc("deliver_box", process);
-		#	actionLock = true;
-		#	return;
+		
+		if(hasBox and interactionRay.get_collider().is_in_group("process") and actionLock == false):
+			process = interactionRay.get_collider().get_name();
+			emit_signal("deliver_box_to_process", self.get_name(), process, boxHolder.get_child(0).get_name());
+			return;
+		actionLock = true;
 	pass

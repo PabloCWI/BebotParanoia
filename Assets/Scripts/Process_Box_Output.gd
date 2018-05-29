@@ -7,6 +7,7 @@ var hasBox;
 var processUnderway;
 var processTime;
 var processStatus;
+onready var nwMaster = get_parent().get_node("NetworkMaster");
 
 func _ready():
 	add_to_group("process");
