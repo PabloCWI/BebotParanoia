@@ -69,7 +69,7 @@ extents = Vector3( 1, 1, 1 )
 
 extents = Vector3( 1, 1, 1 )
 
-[node name="Box_Input" type="StaticBody" index="0"]
+[node name="Box_Input" type="StaticBody"]
 
 input_ray_pickable = true
 input_capture_on_drag = false
