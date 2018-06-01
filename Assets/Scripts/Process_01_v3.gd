@@ -18,14 +18,21 @@ func _ready():
 	pass
 
 func _process(delta):
-	if(hasBox == true and processStatus == "Processing"):
-		rpc("do_process", delta);
-
+	if(hasBox == false):
+		processStatus = "ReadyToReceive"
+	
+	if(hasBox == true && processStatus != "ReadyToDeliver"):
+		processStatus = "Processing";
+			
+	if(processStatus == "Processing"):
+		do_process(delta);
 	pass
 
-master func do_process(delta):
+func do_process(delta):
 	processTime = processTime + delta;
 	if(processTime > 3.0):
+		print(self.get_name(), " is ready to deliver");
+		currentBox = boxHolder.get_child(0);
 		processStatus = "ReadyToDeliver";
 		processTime = 0.0;
 	pass
