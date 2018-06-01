@@ -18,7 +18,7 @@ func _ready():
 	pass
 
 func _process(delta):
-	if(hasBox == false and processStatus == "Processing"):
+	if(hasBox == false):
 		rpc("do_process", delta);
 	pass
 
@@ -27,9 +27,6 @@ master func do_process(delta):
 	if(processTime > 3.0):
 		rpc("instantiate_box", box);
 	pass
-
-func process_status():
-	return processStatus;
 
 func can_deliver_box():
 	if(processStatus == "ReadyToDeliver"):

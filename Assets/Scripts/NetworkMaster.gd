@@ -37,7 +37,7 @@ func _on_player_deliver_box_to_process(player, process, box):
 
 func _on_player_ask_box_from_process(player, process):
 	var box = get_parent().get_node(process).can_deliver_box()
-	
+	print("Player ", player, " asked a box ", box, " from process ", process)
 	_deliver_box_to_player_from_process(player, box, process)
 	rpc("_deliver_box_to_player_from_process", player, box, process)	
 
@@ -46,7 +46,6 @@ remote func _deliver_box_to_player_from_process(player, box, process):
 		var boxToDeliver = get_parent().get_node(process).get_node("BoxHolder").get_node(box)
 		get_parent().get_node(process).get_node("BoxHolder").call_deferred("remove_child",boxToDeliver);
 		get_parent().get_node(process).hasBox = false;
-		get_parent().get_node(process).processStatus = "Processing"
 		get_parent().get_node(player).get_node("BoxHolder").call_deferred("add_child",boxToDeliver);
 		get_parent().get_node(player).hasBox = true;
 	else:
@@ -54,7 +53,7 @@ remote func _deliver_box_to_player_from_process(player, box, process):
 	pass
 
 remote func _deliver_box_to_process_from_player(player, process, box):
-	if(box != null):
+	if(box != null && get_parent().get_node(process).processStatus == "ReadyToReceive"):
 		var boxToDeliver = get_parent().get_node(player).get_node("BoxHolder").get_node(box);
 		get_parent().get_node(player).get_node("BoxHolder").call_deferred("remove_child", boxToDeliver);
 		get_parent().get_node(player).hasBox = false;
