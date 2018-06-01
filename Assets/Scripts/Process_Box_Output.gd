@@ -20,29 +20,27 @@ func _ready():
 	pass
 
 func _process(delta):
-	if(hasBox == true and processStatus == "Processing"):		
-		rpc("do_process", delta);
+	if(hasBox == true and processStatus == "ReadyToReceive"):
+		processStatus = "Processing";
+		print("Preparing to remove");
+	
+	if(hasBox == true and processStatus == "Processing"):
+		do_process(delta);
 
 	pass
 
-sync func do_process(delta):
+func do_process(delta):
 	processTime = processTime + delta;
 	
 	if(processTime > 3.0):
+		print("Removing");
 		processStatus = "ReadyToReceive";
 		processTime = 0.0;
+		hasBox = false;
+		currentBox = boxHolder.get_child(0);
 		currentBox.visible = false;
 		currentBox.queue_free();
 	pass
 	
-sync func process_status():	
-	return processStatus;
-
-sync func receive_box_from(box, player):
-	if (player.hasBox == true and processStatus == "ReadyToReceive" and box.is_in_group("boxes") ):
-		player.set_hasBox(false);
-		boxHolder.add_child(box);
-		currentBox = box;
-		box.set_translation(Vector3(0,0,0));
-		processStatus = "Processing";
-		hasBox = true;
+func can_deliver_box():
+		return null;
