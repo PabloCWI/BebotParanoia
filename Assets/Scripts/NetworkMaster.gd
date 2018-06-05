@@ -1,5 +1,7 @@
 extends Node
 
+onready var rlMaster = get_parent().get_node("RuleMaster");
+
 var playerObject = load("res://Assets/Models/Objects/Player.tscn")
 var boxHolder = ("BoxHolder")
 
@@ -38,6 +40,7 @@ func _on_player_deliver_box_to_process(player, process, box):
 func _on_player_ask_box_from_process(player, process):
 	var box = get_parent().get_node(process).can_deliver_box()
 	print("Player ", player, " asked a box ", box, " from process ", process)
+	rlMaster.check_current_rule_is_correct_player(box, process, player)
 	_deliver_box_to_player_from_process(player, box, process)
 	rpc("_deliver_box_to_player_from_process", player, box, process)	
 
