@@ -7,6 +7,7 @@ var processTime;
 var processStatus;
 onready var box = preload("res://Assets/Models/Objects/Box.tscn");
 onready var nwMaster = get_parent().get_node("NetworkMaster");
+onready var rlMaster = get_parent().get_node("RuleMaster");
 
 func _ready():
 	add_to_group("process");
@@ -41,6 +42,7 @@ sync func instantiate_box(new_box):
 	currentBox = new_box.instance();
 	boxCounter = boxCounter + 1;
 	currentBox.set_name("Box_" + str(boxCounter).pad_zeros(2))
+	currentBox.Rules = rlMaster.add_rules_to_new_box_instance()
 	processTime = 0.0;
 	get_node("BoxHolder").add_child(currentBox);
 	hasBox = true;
