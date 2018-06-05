@@ -1,29 +1,19 @@
 extends KinematicBody 
 
-var ID = 100000
 var Box_Color
+var Status
+onready var Rules
 
 # class member variables go here, for example:
 # var a = 2
 # var b = "textvar"
 
 func _ready():
-	# Called every time the node is added to the scene.
-	# Initialization here
+	Status = "Incomplete";
 	add_to_group("boxes");
-	ID + 1;
-	Box_Color  = "RED";
+	
 	
 	pass
 
 func _process(delta):	
 	pass
-
-func get_Color():
-	return Box_Color;
-	
-func meDestroi():
-	rpc("deleteMe")
-
-sync func deleteMe():
-	queue_free()
