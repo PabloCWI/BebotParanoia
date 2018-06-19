@@ -22,20 +22,16 @@ func _ready():
 
 func _set_players_on_network(botP1, botP2):
 	if (get_tree().is_network_server()):				
-		#if in the server, get control of player 2 to the other peeer, this function is tree recursive by default
-		#get_parent().get_node("Player_01").set_network_master(get_tree().get_network_unique_id())
 		get_parent().get_node("Player_02").set_network_master(get_tree().get_network_connected_peers()[0])
 	else:		
-		#if in the client, give control of player 2 to itself, this function is tree recursive by default				
 		get_parent().get_node("Player_02").set_network_master(get_tree().get_network_unique_id())
-		#get_parent().get_node("Player_01").set_network_master(get_tree().get_network_connected_peers()[0])
 	pass
 
 func _on_player_deliver_box_to_process(player, process, box):
-	print("Network master delivers box: ", box, " from ", player, " to ", process);
-	
-	_deliver_box_to_process_from_player(player, process, box);
-	rpc("_deliver_box_to_process_from_player",player, process, box);
+	print(process)
+	if(process != "Process_Box_Output"):
+		_deliver_box_to_process_from_player(player, process, box);
+		rpc("_deliver_box_to_process_from_player",player, process, box);
 
 func _on_player_ask_box_from_process(player, process):
 	var box = get_parent().get_node(process).can_deliver_box()
@@ -46,6 +42,7 @@ func _on_player_ask_box_from_process(player, process):
 
 remote func _deliver_box_to_player_from_process(player, box, process):
 	if(box != null):
+		print("Network master delivers box: ", box, " from ", player, " to ", process);
 		var boxToDeliver = get_parent().get_node(process).get_node("BoxHolder").get_node(box)
 		get_parent().get_node(process).get_node("BoxHolder").call_deferred("remove_child",boxToDeliver);
 		get_parent().get_node(process).hasBox = false;
