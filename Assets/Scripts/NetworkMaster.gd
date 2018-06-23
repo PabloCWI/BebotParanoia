@@ -4,6 +4,7 @@ onready var rlMaster = get_parent().get_node("RuleMaster");
 
 var playerObject = load("res://Assets/Models/Objects/Player.tscn")
 var boxHolder = ("BoxHolder")
+sync var playersColor = ["",""];
 
 func _ready():
 	#instert player 1 onto scene
@@ -20,6 +21,26 @@ func _ready():
 	
 	call_deferred("_set_players_on_network", botP1, botP2)
 
+func set_player_info(color):
+	if(get_tree().is_network_server()):
+		rpc("setPlayerColor", 0, color);
+		
+	else:
+		rpc("setPlayerColor", 1, color);
+
+sync func setPlayerColor(index, color):
+	playersColor.insert(index, color)
+	
+	if(typeof(playersColor[0]) == TYPE_COLOR && typeof(playersColor[1]) == TYPE_COLOR):
+		
+		rpc("sync_player_colors");
+		pass
+	pass
+
+sync func sync_player_colors():
+	
+	get_parent().get_node("Box_Input")._set_players_color(playersColor[0], playersColor[1])
+
 func _set_players_on_network(botP1, botP2):
 	if (get_tree().is_network_server()):				
 		get_parent().get_node("Player_02").set_network_master(get_tree().get_network_connected_peers()[0])
@@ -28,28 +49,29 @@ func _set_players_on_network(botP1, botP2):
 	pass
 
 func _on_player_deliver_box_to_process(player, process, box):
-	print(process)
+	#print(process)
 	if(process != "Process_Box_Output"):
 		_deliver_box_to_process_from_player(player, process, box);
 		rpc("_deliver_box_to_process_from_player",player, process, box);
 
 func _on_player_ask_box_from_process(player, process):
 	var box = get_parent().get_node(process).can_deliver_box()
-	print("Player ", player, " asked a box ", box, " from process ", process)
+	#print("Player ", player, " asked a box ", box, " from process ", process)
 	rlMaster.check_current_rule_is_correct_player(box, process, player)
 	_deliver_box_to_player_from_process(player, box, process)
 	rpc("_deliver_box_to_player_from_process", player, box, process)	
 
 remote func _deliver_box_to_player_from_process(player, box, process):
 	if(box != null):
-		print("Network master delivers box: ", box, " from ", player, " to ", process);
+		#print("Network master delivers box: ", box, " from ", player, " to ", process);
 		var boxToDeliver = get_parent().get_node(process).get_node("BoxHolder").get_node(box)
 		get_parent().get_node(process).get_node("BoxHolder").call_deferred("remove_child",boxToDeliver);
 		get_parent().get_node(process).hasBox = false;
 		get_parent().get_node(player).get_node("BoxHolder").call_deferred("add_child",boxToDeliver);
 		get_parent().get_node(player).hasBox = true;
 	else:
-		print("No box found.")
+		#print("No box found.")
+		pass
 	pass
 
 remote func _deliver_box_to_process_from_player(player, process, box):
@@ -61,5 +83,6 @@ remote func _deliver_box_to_process_from_player(player, process, box):
 		get_parent().get_node(process).hasBox = true;
 		pass
 	else:
-		print("No box found.")	
+		#print("No box found.")
+		pass
 	pass

@@ -65,7 +65,7 @@ _sections_unfolded = [ "Albedo" ]
 
 extents = Vector3( 1, 1, 1 )
 
-[node name="Box" type="KinematicBody" index="0"]
+[node name="Box" type="KinematicBody"]
 
 input_ray_pickable = true
 input_capture_on_drag = false

@@ -3,6 +3,8 @@ extends Control
 
 const DEFAULT_PORT = 8910  # some random number, pick your port properly
 onready var GAME_IP = "127.0.0.1"
+onready var PLAYER_CHOOSEN_COLOR;
+onready var DEFAULT_COLOR_WHITE = Color(1.0,1.0,1.0,1.0);
 
 #### Network callbacks from SceneTree ####
 
@@ -13,7 +15,14 @@ func _player_connected(id):
 	bebotParanoia.connect("game_finished",self,"_end_game",[],CONNECT_DEFERRED) # connect deferred so we can safely erase it from the callback
 	
 	get_tree().get_root().add_child(bebotParanoia)
+	
+	_set_player_info(PLAYER_CHOOSEN_COLOR)
+	
 	hide()
+
+func _set_player_info(color):	
+	get_tree().get_root().get_node("Level").get_node("NetworkMaster").set_player_info(color);
+	pass
 
 func _player_disconnected(id):
 	get_tree().quit()
@@ -90,6 +99,8 @@ func join_server():
 ### INITIALIZER ####
 	
 func _ready():
+	# set default color picker color
+	get_node("ColorPickerButton").color = DEFAULT_COLOR_WHITE;
 	# connect all the callbacks related to networking
 	get_tree().connect("network_peer_connected",self,"_player_connected")
 	get_tree().connect("network_peer_disconnected",self,"_player_disconnected")
@@ -97,3 +108,8 @@ func _ready():
 	get_tree().connect("connection_failed",self,"_connected_fail")
 	get_tree().connect("server_disconnected",self,"_server_disconnected")
 	
+
+
+func _on_ColorPickerButton_color_changed(color):
+	PLAYER_CHOOSEN_COLOR = color;	
+	pass # replace with function body
