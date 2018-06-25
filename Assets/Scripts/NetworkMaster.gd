@@ -4,7 +4,6 @@ onready var rlMaster = get_parent().get_node("RuleMaster");
 
 var playerObject = load("res://Assets/Models/Objects/Player.tscn")
 var boxHolder = ("BoxHolder")
-sync var playersColor = ["",""];
 
 func _ready():
 	#instert player 1 onto scene
@@ -21,25 +20,10 @@ func _ready():
 	
 	call_deferred("_set_players_on_network", botP1, botP2)
 
-func set_player_info(color):
-	if(get_tree().is_network_server()):
-		rpc("setPlayerColor", 0, color);
-		
-	else:
-		rpc("setPlayerColor", 1, color);
-
-sync func setPlayerColor(index, color):
-	playersColor.insert(index, color)
-	
-	if(typeof(playersColor[0]) == TYPE_COLOR && typeof(playersColor[1]) == TYPE_COLOR):
-		
-		rpc("sync_player_colors");
-		pass
-	pass
-
-sync func sync_player_colors():
-	
-	get_parent().get_node("Box_Input")._set_players_color(playersColor[0], playersColor[1])
+func set_players_info(p1Color, p2Color):
+	print("Setting P1 color: ", p1Color)
+	print("Setting P2 color: ", p2Color)
+	get_parent().get_node("Box_Input")._set_players_color(p1Color, p2Color)	
 
 func _set_players_on_network(botP1, botP2):
 	if (get_tree().is_network_server()):				

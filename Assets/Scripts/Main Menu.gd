@@ -3,7 +3,10 @@ extends Control
 
 const DEFAULT_PORT = 8910  # some random number, pick your port properly
 onready var GAME_IP = "127.0.0.1"
-onready var PLAYER_CHOOSEN_COLOR;
+var PLAYER_CHOOSEN_COLOR = Color();
+sync var PLAYER1_CHOOSEN_COLOR = "";
+sync var PLAYER2_CHOOSEN_COLOR = "";
+sync var FINAL_COLORS;
 onready var DEFAULT_COLOR_WHITE = Color(1.0,1.0,1.0,1.0);
 
 #### Network callbacks from SceneTree ####
@@ -16,12 +19,23 @@ func _player_connected(id):
 	
 	get_tree().get_root().add_child(bebotParanoia)
 	
-	_set_player_info(PLAYER_CHOOSEN_COLOR)
+	rpc("_set_player_info",PLAYER_CHOOSEN_COLOR)
 	
 	hide()
 
-func _set_player_info(color):	
-	get_tree().get_root().get_node("Level").get_node("NetworkMaster").set_player_info(color);
+sync func _set_player_info(color):	
+	if(get_tree().is_network_server()):		
+		if(PLAYER1_CHOOSEN_COLOR == ""):
+			PLAYER1_CHOOSEN_COLOR = color.to_html()
+		else:
+			PLAYER2_CHOOSEN_COLOR = color.to_html()
+	else:
+		if(PLAYER2_CHOOSEN_COLOR == ""):
+			PLAYER2_CHOOSEN_COLOR = color.to_html()
+		else:
+			PLAYER1_CHOOSEN_COLOR = color.to_html()
+	if(typeof(PLAYER1_CHOOSEN_COLOR) == TYPE_STRING && typeof(PLAYER2_CHOOSEN_COLOR) == TYPE_STRING):
+		get_tree().get_root().get_node("Level").get_node("NetworkMaster").set_players_info(PLAYER1_CHOOSEN_COLOR, PLAYER2_CHOOSEN_COLOR);
 	pass
 
 func _player_disconnected(id):
