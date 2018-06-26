@@ -14,6 +14,8 @@ onready var nwMaster = get_parent().get_node("NetworkMaster");
 onready var rlMaster = get_parent().get_node("RuleMaster");
 onready var player01Material = preload("res://Assets/Models/Textures/BoxMaterialPlayer01.tres")
 onready var player02Material = preload("res://Assets/Models/Textures/BoxMaterialPlayer02.tres")
+onready var process01Texture = preload("res://Assets/Models/Textures/BoxMaterialProcess01.tres")
+onready var process02Texture = preload("res://Assets/Models/Textures/BoxMaterialProcess02.tres")
 
 func _ready():
 	add_to_group("process");
@@ -25,8 +27,7 @@ func _ready():
 	
 	pass
 
-func _set_players_color(player1Color, player2Color):
-	print("P1:", player1Color, " P2: ",player2Color);	
+func _set_players_color(player1Color, player2Color):	
 	inputPlayer01Color = player1Color
 	inputPlayer02Color = player2Color
 	rpc("set_material_color");
@@ -60,16 +61,19 @@ sync func instantiate_box(new_box):
 	processStatus = "ReadyToDeliver";
 	currentBox = new_box.instance();
 	boxCounter = boxCounter + 1;
-	if(randi()%50 > 25):
-		owningPlayer = "Player_01";		
-		currentBox.get_node("BoxMesh").set_surface_material(1, player01Material)		
-	else:
-		owningPlayer = "Player_02";
-		currentBox.get_node("BoxMesh").set_surface_material(1, player02Material)		
+	currentBox.Rules = rlMaster.add_rules_to_new_box_instance()
 	currentBox.set_name("Box_" + str(boxCounter).pad_zeros(10))
-	currentBox.BoxOwnership = owningPlayer;
-	currentBox.Status = "Incomplete";
-	currentBox.Rules = rlMaster.add_rules_to_new_box_instance()	
+	if(currentBox.Rules.ProcessSteps[0] == "Process_01"):
+		currentBox.get_node("BoxMesh").set_surface_material(0, process01Texture);
+	if(currentBox.Rules.ProcessSteps[0] == "Process_02"):
+		currentBox.get_node("BoxMesh").set_surface_material(0, process02Texture);
+	if(currentBox.Rules.BoxOwnership == "Player_01"):
+		currentBox.get_node("BoxMesh").set_surface_material(1, player01Material);
+	if(currentBox.Rules.BoxOwnership == "Player_02"):
+		currentBox.get_node("BoxMesh").set_surface_material(1, player02Material);
+
+	currentBox.Rules.Status = "Incomplete";
+	
 	processTime = 0.0;
 	get_node("BoxHolder").add_child(currentBox);
 	hasBox = true;

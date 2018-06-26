@@ -1,6 +1,7 @@
 extends Node
 
 onready var rlMaster = get_parent().get_node("RuleMaster");
+onready var gameOverPanel = get_parent().get_node("GameOver");
 
 var playerObject = load("res://Assets/Models/Objects/Player.tscn")
 var boxHolder = ("BoxHolder")
@@ -19,6 +20,11 @@ func _ready():
 	botP2.translate(Vector3(5,0.5,5))	
 	
 	call_deferred("_set_players_on_network", botP1, botP2)
+
+sync func _set_game_over_status(boolValue):
+	if(boolValue):
+		gameOverPanel.show();
+		pass
 
 func set_players_info(p1Color, p2Color):
 	print("Setting P1 color: ", p1Color)
