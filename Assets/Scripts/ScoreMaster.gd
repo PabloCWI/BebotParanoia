@@ -16,13 +16,13 @@ func _ready():
 	pass
 
 func _reduce_computer_patience():	
-	ui_patience.rpc("_reduce_computer_patience",50.0);
+	ui_patience.rpc("_reduce_computer_patience",10.0);
 	if(ui_patience._get_current_computer_patience() == 0.0):
 		gameOver = true;
 	pass
 
 func _reduce_factory_hp():	
-	ui_hp.rpc("_reduce_factory_hp",50.0);
+	ui_hp.rpc("_reduce_factory_hp",10.0);
 	if(ui_hp._get_current_factory_hp() == 0.0):
 		gameOver = true;
 	pass

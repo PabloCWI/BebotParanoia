@@ -7,10 +7,7 @@ path="res://.import/OverlayBack.png-3e3f9dba40b2e9f9a9a27e202c5228a0.stex"
 [deps]
 
 source_file="res://Assets/Models/Textures/OverlayBack.png"
-source_md5="86044c922bc669b8cf47a66726b4dc33"
-
 dest_files=[ "res://.import/OverlayBack.png-3e3f9dba40b2e9f9a9a27e202c5228a0.stex" ]
-dest_md5="3688f7194a8d3f9fe08e2a36ab72d8ac"
 
 [params]
 

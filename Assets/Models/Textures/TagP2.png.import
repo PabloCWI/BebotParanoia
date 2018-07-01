@@ -8,10 +8,7 @@ path.etc2="res://.import/TagP2.png-0913899439ec5c9928dbdbb4037f474b.etc2.stex"
 [deps]
 
 source_file="res://Assets/Models/Textures/TagP2.png"
-source_md5="a697032082147a3d5872162f6eb4d17b"
-
 dest_files=[ "res://.import/TagP2.png-0913899439ec5c9928dbdbb4037f474b.s3tc.stex", "res://.import/TagP2.png-0913899439ec5c9928dbdbb4037f474b.etc2.stex" ]
-dest_md5="d5553346bcf3e11029ef6a5a8a4d821f"
 
 [params]
 

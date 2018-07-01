@@ -8,10 +8,7 @@ path.etc2="res://.import/FactoryFloor.png-b9b4fb18a1e699fb1ec72ce86db9905e.etc2.
 [deps]
 
 source_file="res://Assets/Models/Textures/FactoryFloor.png"
-source_md5="c93978d10f09cc9ad033d820763e1a22"
-
 dest_files=[ "res://.import/FactoryFloor.png-b9b4fb18a1e699fb1ec72ce86db9905e.s3tc.stex", "res://.import/FactoryFloor.png-b9b4fb18a1e699fb1ec72ce86db9905e.etc2.stex" ]
-dest_md5="c576d51e45112639809ecec439cbc9c2"
 
 [params]
 

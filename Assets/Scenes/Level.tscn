@@ -16,13 +16,13 @@
 [ext_resource path="res://Assets/Fonts/VCR_OSD_MONO_1.001.ttf" type="DynamicFontData" id=14]
 [ext_resource path="res://Assets/Scenes/InGameQuit.gd" type="Script" id=15]
 
-[sub_resource type="PlaneMesh" id=6]
+[sub_resource type="PlaneMesh" id=1]
 
 size = Vector2( 2, 2 )
 subdivide_width = 0
 subdivide_depth = 0
 
-[sub_resource type="SpatialMaterial" id=7]
+[sub_resource type="SpatialMaterial" id=2]
 
 render_priority = 0
 flags_transparent = false
@@ -75,7 +75,7 @@ proximity_fade_enable = false
 distance_fade_enable = false
 _sections_unfolded = [ "Albedo" ]
 
-[sub_resource type="SpatialMaterial" id=8]
+[sub_resource type="SpatialMaterial" id=3]
 
 render_priority = 0
 flags_transparent = false
@@ -128,7 +128,7 @@ proximity_fade_enable = false
 distance_fade_enable = false
 _sections_unfolded = [ "Albedo" ]
 
-[sub_resource type="GIProbeData" id=1]
+[sub_resource type="GIProbeData" id=4]
 
 bounds = AABB( -21.0729, -12.9435, -15.1899, 42.1458, 25.887, 30.3798 )
 cell_size = 0.329264
@@ -142,7 +142,7 @@ propagation = 0.5
 interior = false
 compress = false
 
-[sub_resource type="ProceduralSky" id=2]
+[sub_resource type="ProceduralSky" id=5]
 
 radiance_size = 4
 sky_top_color = Color( 0.0898438, 0.0898438, 0.0898438, 1 )
@@ -163,10 +163,10 @@ sun_energy = 5.0
 texture_size = 2
 _sections_unfolded = [ "Sky" ]
 
-[sub_resource type="Environment" id=3]
+[sub_resource type="Environment" id=6]
 
 background_mode = 0
-background_sky = SubResource( 2 )
+background_sky = SubResource( 5 )
 background_sky_custom_fov = 0.0
 background_color = Color( 0, 0, 0, 1 )
 background_energy = 5.0
@@ -243,7 +243,7 @@ adjustment_contrast = 1.0
 adjustment_saturation = 1.0
 _sections_unfolded = [ "Background" ]
 
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="DynamicFont" id=7]
 
 size = 40
 use_mipmaps = false
@@ -251,7 +251,7 @@ use_filter = false
 font_data = ExtResource( 14 )
 _sections_unfolded = [ "Font", "Settings" ]
 
-[sub_resource type="DynamicFont" id=5]
+[sub_resource type="DynamicFont" id=8]
 
 size = 25
 use_mipmaps = false
@@ -287,9 +287,9 @@ lod_min_distance = 0.0
 lod_min_hysteresis = 0.0
 lod_max_distance = 0.0
 lod_max_hysteresis = 0.0
-mesh = SubResource( 6 )
+mesh = SubResource( 1 )
 skeleton = NodePath("..")
-material/0 = SubResource( 7 )
+material/0 = SubResource( 2 )
 _sections_unfolded = [ "Transform", "material" ]
 
 [node name="Process_02" parent="." index="4" instance=ExtResource( 5 )]
@@ -308,9 +308,9 @@ lod_min_distance = 0.0
 lod_min_hysteresis = 0.0
 lod_max_distance = 0.0
 lod_max_hysteresis = 0.0
-mesh = SubResource( 6 )
+mesh = SubResource( 1 )
 skeleton = NodePath("..")
-material/0 = SubResource( 8 )
+material/0 = SubResource( 3 )
 _sections_unfolded = [ "Transform", "material" ]
 
 [node name="Box_Output" parent="." index="5" instance=ExtResource( 8 )]
@@ -337,11 +337,11 @@ bias = 1.5
 normal_bias = 0.0
 interior = false
 compress = false
-data = SubResource( 1 )
+data = SubResource( 4 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." index="9"]
 
-environment = SubResource( 3 )
+environment = SubResource( 6 )
 _sections_unfolded = [ "Pause" ]
 
 [node name="ComputerPatience" parent="." index="10" instance=ExtResource( 12 )]
@@ -392,7 +392,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 7 )
 text = "GAME OVER"
 percent_visible = 1.0
 lines_skipped = 0
@@ -416,7 +416,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 8 )
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null

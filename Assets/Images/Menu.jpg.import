@@ -7,10 +7,7 @@ path="res://.import/Menu.jpg-15f6886c7917d65ec16da73647611129.stex"
 [deps]
 
 source_file="res://Assets/Images/Menu.jpg"
-source_md5="947f0f89a768c25b7c1c7f9c55146df8"
-
 dest_files=[ "res://.import/Menu.jpg-15f6886c7917d65ec16da73647611129.stex" ]
-dest_md5="23b8afd37f25e994521b463b2539b80b"
 
 [params]
 

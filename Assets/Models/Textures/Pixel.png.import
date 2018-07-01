@@ -7,10 +7,7 @@ path="res://.import/Pixel.png-5fa209f7143d353a7d6c8387b8c5937c.stex"
 [deps]
 
 source_file="res://Assets/Models/Textures/Pixel.png"
-source_md5="1d2732287f968cf15c46426a49018f76"
-
 dest_files=[ "res://.import/Pixel.png-5fa209f7143d353a7d6c8387b8c5937c.stex" ]
-dest_md5="55a9ad7c9f587b0aed6dfb04ca1e7348"
 
 [params]
 

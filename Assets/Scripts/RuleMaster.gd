@@ -19,9 +19,9 @@ func _set_box_ready_to_exit(box):
 	get_parent().get_node(box).Status = "Complete";
 	pass
 
-func check_current_rule_is_correct_process(box, process):
-	if(box != null && process != null && get_parent().get_node(process).currentBox.Rules.ProcessSteps[0] != null):
-		if(get_parent().get_node(process).currentBox.Rules.ProcessSteps[0] == process):
+func check_current_rule_is_correct_process(player, box, process):
+	if(box != null && process != null && get_parent().get_node(player).get_node("BoxHolder").get_node(box).Rules.ProcessSteps[0] != null):
+		if(get_parent().get_node(player).get_node("BoxHolder").get_node(box).Rules.ProcessSteps[0] == process):
 			print("Correct Process");
 		else:
 			print("Incorrect Process")
