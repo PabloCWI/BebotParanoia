@@ -2,8 +2,7 @@
 
 [ext_resource path="res://Assets/Scripts/RuleMaster.gd" type="Script" id=1]
 
-
-[node name="RuleMaster" type="Node" index="0"]
+[node name="RuleMaster" type="Node"]
 
 script = ExtResource( 1 )
 

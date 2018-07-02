@@ -28,7 +28,6 @@ sync func _set_game_over_status(boolValue):
 
 func set_players_info(p1Color, p2Color):
 	get_parent().get_node("Box_Input")._set_players_color(p1Color, p2Color)
-	#get_parent().get_node("Player_01").get_node("MeshInstance").get_surface_material
 
 func _set_players_on_network(botP1, botP2):
 	if (get_tree().is_network_server()):
@@ -36,6 +35,9 @@ func _set_players_on_network(botP1, botP2):
 	else:
 		get_parent().get_node("Player_02").set_network_master(get_tree().get_network_unique_id())
 	pass
+	
+	botP1._set_player_color("Player_01")
+	botP2._set_player_color("Player_02")
 
 func _on_player_deliver_box_to_process(player, process, box):
 	if(process != "Process_Box_Output"):

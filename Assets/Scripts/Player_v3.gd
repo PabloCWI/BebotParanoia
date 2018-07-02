@@ -20,6 +20,8 @@ onready var boxHolder = get_node("BoxHolder");
 onready var playerID = 0;
 onready var cameraStart = true;
 onready var nwMaster = get_parent().get_node("NetworkMaster");
+onready var player01Material = preload("res://Assets/Models/Textures/BoxMaterialPlayer01.tres")
+onready var player02Material = preload("res://Assets/Models/Textures/BoxMaterialPlayer02.tres")
 
 signal ask_box_from_process(player, process);
 signal deliver_box_to_process(player, process);
@@ -39,6 +41,13 @@ func _ready():
 	actionLockTimer = 0.0;
 	player.connect("ask_box_from_process", nwMaster, "_on_player_ask_box_from_process")
 	player.connect("deliver_box_to_process", nwMaster, "_on_player_deliver_box_to_process")
+	pass
+
+func _set_player_color(target):
+	if(target == "Player_01"):
+		self.get_node("MeshInstance").set_surface_material(0, player01Material);
+	if(target == "Player_02"):
+		self.get_node("MeshInstance").set_surface_material(0, player02Material);
 	pass
 
 sync func set_pos(player_position):
@@ -94,3 +103,5 @@ func check_ray_collision():
 			return;
 		actionLock = true;
 	pass
+
+

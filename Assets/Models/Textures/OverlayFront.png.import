@@ -7,7 +7,10 @@ path="res://.import/OverlayFront.png-0da953da33806f0fe2394442af88d05f.stex"
 [deps]
 
 source_file="res://Assets/Models/Textures/OverlayFront.png"
+source_md5="b35481b09a0511a8619a6734a7fd0cbc"
+
 dest_files=[ "res://.import/OverlayFront.png-0da953da33806f0fe2394442af88d05f.stex" ]
+dest_md5="a989663455867dc442742f5dccfec340"
 
 [params]
 

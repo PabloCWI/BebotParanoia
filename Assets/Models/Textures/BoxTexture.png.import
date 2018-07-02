@@ -8,7 +8,10 @@ path.etc2="res://.import/BoxTexture.png-8b86583297f7dbd27aa332a1f9bc4227.etc2.st
 [deps]
 
 source_file="res://Assets/Models/Textures/BoxTexture.png"
+source_md5="d7fd15218668f08fe76a491a5bb9d77b"
+
 dest_files=[ "res://.import/BoxTexture.png-8b86583297f7dbd27aa332a1f9bc4227.s3tc.stex", "res://.import/BoxTexture.png-8b86583297f7dbd27aa332a1f9bc4227.etc2.stex" ]
+dest_md5="b8b0254b6a17ed438132b227589bff60"
 
 [params]
 

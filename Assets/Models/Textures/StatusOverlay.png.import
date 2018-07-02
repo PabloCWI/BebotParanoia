@@ -7,7 +7,10 @@ path="res://.import/StatusOverlay.png-a8589ae597ac138ca2642a753eb7ac3c.stex"
 [deps]
 
 source_file="res://Assets/Models/Textures/StatusOverlay.png"
+source_md5="5cc158b7e8033dc77fa53645ceb64bce"
+
 dest_files=[ "res://.import/StatusOverlay.png-a8589ae597ac138ca2642a753eb7ac3c.stex" ]
+dest_md5="dcef1f0dde66424781c1e34d30dcaadf"
 
 [params]
 

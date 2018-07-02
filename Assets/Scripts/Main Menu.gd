@@ -15,7 +15,7 @@ onready var DEFAULT_COLOR_WHITE = Color(1.0,1.0,1.0,1.0);
 func _player_connected(id):
 	#someone connected, start the game!
 	var bebotParanoia = load("res://Assets/Scenes/Level.tscn").instance()
-	bebotParanoia.connect("game_finished",self,"_end_game",[],CONNECT_DEFERRED) # connect deferred so we can safely erase it from the callback
+	#bebotParanoia.connect("game_finished",self,"_end_game",[],CONNECT_DEFERRED) # connect deferred so we can safely erase it from the callback
 	
 	get_tree().get_root().add_child(bebotParanoia)
 	

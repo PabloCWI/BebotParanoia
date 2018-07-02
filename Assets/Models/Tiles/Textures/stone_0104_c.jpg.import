@@ -7,7 +7,10 @@ path="res://.import/stone_0104_c.jpg-cb90cbac9a85be8f155df32ebef8bb3d.stex"
 [deps]
 
 source_file="res://Assets/Models/Tiles/Textures/stone_0104_c.jpg"
+source_md5="17324ffcec1b5777cd50e6c59bded473"
+
 dest_files=[ "res://.import/stone_0104_c.jpg-cb90cbac9a85be8f155df32ebef8bb3d.stex" ]
+dest_md5="628de850557802d3c2097ff59f6288fc"
 
 [params]
 

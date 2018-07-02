@@ -16,6 +16,7 @@ onready var player01Material = preload("res://Assets/Models/Textures/BoxMaterial
 onready var player02Material = preload("res://Assets/Models/Textures/BoxMaterialPlayer02.tres")
 onready var process01Texture = preload("res://Assets/Models/Textures/BoxMaterialProcess01.tres")
 onready var process02Texture = preload("res://Assets/Models/Textures/BoxMaterialProcess02.tres")
+onready var process03Texture = preload("res://Assets/Models/Textures/BoxMaterialProcess03.tres")
 
 func _ready():
 	add_to_group("process");
@@ -67,6 +68,8 @@ sync func instantiate_box(new_box):
 		currentBox.get_node("BoxMesh").set_surface_material(0, process01Texture);
 	if(currentBox.Rules.ProcessSteps[0] == "Process_02"):
 		currentBox.get_node("BoxMesh").set_surface_material(0, process02Texture);
+	if(currentBox.Rules.ProcessSteps[0] == "Process_03"):
+		currentBox.get_node("BoxMesh").set_surface_material(0, process03Texture);
 	if(currentBox.Rules.BoxOwnership == "Player_01"):
 		currentBox.get_node("BoxMesh").set_surface_material(1, player01Material);
 	if(currentBox.Rules.BoxOwnership == "Player_02"):

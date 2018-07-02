@@ -20,12 +20,24 @@ func _set_box_ready_to_exit(box):
 	pass
 
 func check_current_rule_is_correct_process(player, box, process):
-	if(box != null && process != null && get_parent().get_node(player).get_node("BoxHolder").get_node(box).Rules.ProcessSteps[0] != null):
-		if(get_parent().get_node(player).get_node("BoxHolder").get_node(box).Rules.ProcessSteps[0] == process):
-			print("Correct Process");
+	if(box != null && process != null):
+		if (get_parent().get_node(player).get_node("BoxHolder").get_node(box).Rules.ProcessSteps != []):
+			if(get_parent().get_node(player).get_node("BoxHolder").get_node(box).Rules.ProcessSteps[0] == process):
+				print("Correct Process");
+				get_parent().get_node(player).get_node("BoxHolder").get_node(box).rpc("remove_step");
+			else:
+				print("Incorrect Process")
+				penalize_factory_health();
+				pass
+			if(process == "Box_Output"):
+				penalize_computer_patience();
 		else:
-			print("Incorrect Process")
-			penalize_factory_health();
+			if(process == "Box_Output"):
+				print("Ok to Exit");
+			else:
+				penalize_factory_health();
+				penalize_computer_patience();
+				print("Ready to exit, but sent to process")
 			pass
 	pass
 
@@ -44,7 +56,7 @@ func generate_rule_set():
 	ruleSet.BoxOwnership = ("Player_") + str(randi()%02+1).pad_zeros(2);
 	var rule_steps = (randi()%2+3);
 	for i in range(rule_steps):
-		var process = ("Process_") + str(randi()%02+1).pad_zeros(2);
+		var process = ("Process_") + str(randi()%03+1).pad_zeros(2);
 		ruleSet.ProcessSteps.push_back(process);
 		pass
 	return ruleSet;
