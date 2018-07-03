@@ -9,15 +9,13 @@ func _ready():
 	
 	pass
 
-func _set_current_computer_patience(value):
-	print("Setting patience value to: ", value)
+func _set_current_computer_patience(value):	
 	current_patience_value = value;
 
 func _get_current_computer_patience():
 	return current_patience_value;
 
-sync func _reduce_computer_patience(value):
-	print("Reducing current patience: ", current_patience_value, " by: ", value)
+sync func _reduce_computer_patience(value):	
 	current_patience_value = current_patience_value - value;
 	if(current_patience_value < 0):
 		current_patience_value = 0;

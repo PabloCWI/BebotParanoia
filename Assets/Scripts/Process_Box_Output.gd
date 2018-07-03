@@ -22,8 +22,6 @@ func _ready():
 func _process(delta):
 	if(hasBox == true and processStatus == "ReadyToReceive"):
 		processStatus = "Processing";
-		print("Preparing to remove");
-	
 	if(hasBox == true and processStatus == "Processing"):
 		do_process(delta);
 
@@ -33,7 +31,6 @@ func do_process(delta):
 	processTime = processTime + delta;
 	
 	if(processTime > 3.0):
-		print("Removing");
 		processStatus = "ReadyToReceive";
 		processTime = 0.0;
 		hasBox = false;

@@ -26,5 +26,5 @@ sync func remove_step():
 			self.get_node("BoxMesh").set_surface_material(0, process03Texture);
 	else:
 		self.get_node("BoxMesh").set_surface_material(0, processDoneTexture);
-	print("Process Steps: ", Rules.ProcessSteps)
+
 	pass

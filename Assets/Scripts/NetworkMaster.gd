@@ -2,6 +2,8 @@ extends Node
 
 onready var rlMaster = get_parent().get_node("RuleMaster");
 onready var gameOverPanel = get_parent().get_node("GameOver");
+onready var winPanel = get_parent().get_node("Win");
+onready var audioPlayer = get_node("BoxFall");
 
 var playerObject = load("res://Assets/Models/Objects/Player.tscn")
 var boxHolder = ("BoxHolder")
@@ -22,9 +24,14 @@ func _ready():
 	call_deferred("_set_players_on_network", botP1, botP2)
 
 sync func _set_game_over_status(boolValue):
-	if(boolValue):
+	print(boolValue)
+	if(boolValue == "FAIL"):
 		gameOverPanel.show();
 		pass
+	if(boolValue == "WIN"):
+		winPanel.show();
+		pass
+
 
 func set_players_info(p1Color, p2Color):
 	get_parent().get_node("Box_Input")._set_players_color(p1Color, p2Color)
@@ -50,7 +57,7 @@ func _on_player_ask_box_from_process(player, process):
 	#print("Player ", player, " asked a box ", box, " from process ", process)
 	rlMaster.check_current_rule_is_correct_player(box, process, player)
 	_deliver_box_to_player_from_process(player, box, process)
-	rpc("_deliver_box_to_player_from_process", player, box, process)	
+	rpc("_deliver_box_to_player_from_process", player, box, process)
 
 remote func _deliver_box_to_player_from_process(player, box, process):
 	if(box != null):
@@ -59,6 +66,7 @@ remote func _deliver_box_to_player_from_process(player, box, process):
 		get_parent().get_node(process).hasBox = false;
 		get_parent().get_node(player).get_node("BoxHolder").call_deferred("add_child",boxToDeliver);
 		get_parent().get_node(player).hasBox = true;
+		audioPlayer.play(0.0);
 	else:
 		#print("No box found.")
 		pass
@@ -71,8 +79,14 @@ remote func _deliver_box_to_process_from_player(player, process, box):
 		get_parent().get_node(player).hasBox = false;
 		get_parent().get_node(process).get_node("BoxHolder").call_deferred("add_child", boxToDeliver);
 		get_parent().get_node(process).hasBox = true;
+		audioPlayer.play(0.0);
 		pass
 	else:
 		#print("No box found.")
 		pass
+	pass
+
+func _process(delta):
+	if(audioPlayer.get_playback_position() > 0.5):
+		audioPlayer.stop();
 	pass

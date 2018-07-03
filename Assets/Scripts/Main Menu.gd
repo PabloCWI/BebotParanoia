@@ -1,8 +1,9 @@
 
 extends Control
 
-const DEFAULT_PORT = 8910  # some random number, pick your port properly
+const DEFAULT_PORT = 3000  # some random number, pick your port properly
 onready var GAME_IP = "127.0.0.1"
+onready var GET_FROM_TEXT = false;
 var PLAYER_CHOOSEN_COLOR = Color();
 sync var PLAYER1_CHOOSEN_COLOR = "";
 sync var PLAYER2_CHOOSEN_COLOR = "";
@@ -39,8 +40,7 @@ sync func _set_player_info(color):
 	pass
 
 func _player_disconnected(id):
-	get_tree().quit()
-
+	#get_tree().quit()
 	if (get_tree().is_network_server()):
 		_end_game("Client disconnected")
 	else:
@@ -67,6 +67,16 @@ func _server_disconnected():
 ##### Game creation functions ######
 
 func _end_game(with_error=""):
+	get_tree().get_root().get_node("Level").hide()
+	get_tree().get_root().get_node("Root").show()
+	get_tree().set_network_peer(null)
+	get_tree().get_root().get_node("Level").queue_free()
+	
+	get_tree().reload_current_scene()
+	
+	hide()
+	
+	
 	if (has_node("/root/bebotParanoia")):
 		#erase pong scene
 		get_node("/root/bebotParanoia").free() # erase immediately, otherwise network might show errors (this is why we connected deferred above)
@@ -88,6 +98,9 @@ func _set_status(text,isok):
 		get_node("Connection_Status_Error").set_text(text)
 
 func _on_Start_Button_pressed():
+	if(GET_FROM_TEXT == true): 
+		GAME_IP = get_node("ipPanel/ipLineEdit").text;
+		pass
 	var host = NetworkedMultiplayerENet.new()
 	host.set_compression_mode(NetworkedMultiplayerENet.COMPRESS_RANGE_CODER)
 	var err = host.create_server(DEFAULT_PORT,1) # max: 1 peer, since it's a 2 players game
@@ -98,6 +111,7 @@ func _on_Start_Button_pressed():
 		return
 	get_tree().set_network_peer(host)
 	_set_status("Waiting for player..",true)
+	get_node("Start_Button").set_disabled(true)
 
 func join_server():
 	if (not GAME_IP.is_valid_ip_address()):
@@ -113,6 +127,8 @@ func join_server():
 ### INITIALIZER ####
 	
 func _ready():
+	if (GET_FROM_TEXT == true):
+		get_node("ipPanel").show();
 	# set default color picker color
 	get_node("ColorPickerButton").color = DEFAULT_COLOR_WHITE;
 	# connect all the callbacks related to networking

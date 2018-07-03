@@ -1,0 +1,18 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/metal_dumpster_hit.ogg-67e3cf5ce6f57eed3c4da750caea1e90.oggstr"
+
+[deps]
+
+source_file="res://Assets/Audio/metal_dumpster_hit.ogg"
+source_md5="f1b404c18558ea2fb3fd573a640ced44"
+
+dest_files=[ "res://.import/metal_dumpster_hit.ogg-67e3cf5ce6f57eed3c4da750caea1e90.oggstr" ]
+dest_md5="3ec9477b5605384c4b68dd0215427462"
+
+[params]
+
+loop=true
+loop_offset=0
